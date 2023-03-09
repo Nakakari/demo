@@ -184,25 +184,25 @@ class invoiceController extends Controller
             'created_by' => Auth::user()->id,
         ]);
 
-        // try {
-        DB::transaction(function () use ($form, $id_pengiriman) {
-            $invoice = M_invoice::create($form);
-            // dd($invoice);
+        try {
+            DB::transaction(function () use ($form, $id_pengiriman) {
+                $invoice = M_invoice::create($form);
+                // dd($invoice);
 
-            M_pengiriman::whereIn('id_pengiriman', $id_pengiriman)
-                ->update(['is_buat' => 1, 'is_lunas' => 0]);
+                M_pengiriman::whereIn('id_pengiriman', $id_pengiriman)
+                    ->update(['is_buat' => 1, 'is_lunas' => 0]);
 
-            (new InvoiceAction)->addDetailInvoice($id_pengiriman, $invoice->id_invoice);
-            (new InvoiceAction)->addKlaim($form, $invoice->id_invoice);
-            (new InvoiceAction)->addBea($form, $invoice->id_invoice);
-        });
-        $message = "pesan";
-        $info = "Data Berhasil Ditambah!!";
-        // } catch (Throwable $e) {
-        //     report($e);
-        //     $message = "gagal";
-        //     $info = $e;
-        // }
+                (new InvoiceAction)->addDetailInvoice($id_pengiriman, $invoice->id_invoice);
+                (new InvoiceAction)->addKlaim($form, $invoice->id_invoice);
+                (new InvoiceAction)->addBea($form, $invoice->id_invoice);
+            });
+            $message = "pesan";
+            $info = "Data Berhasil Ditambah!!";
+        } catch (Throwable $e) {
+            report($e);
+            $message = "gagal";
+            $info = $e;
+        }
         return redirect('/piutang')->with($message, $info);
     }
 

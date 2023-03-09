@@ -138,8 +138,9 @@
                             <label for="inputAddress" class="form-label">PPn</label>
                             <div class="input-group flex-nowrap">
                                 <input id="ppn" type="text" class="form-control" name="ppn"
-                                    placeholder="0.01" step="0.01" min="0" max="100" /><span
-                                    class="input-group-text" id="addon-wrapping">%</span>
+                                    placeholder="0.01" step="0.01" min="0" max="100"
+                                    value="{{ old('ppn') ?? 0 }}" /><span class="input-group-text"
+                                    id="addon-wrapping">%</span>
                             </div>
                             @if ($errors->has('no_resi'))
                                 <span class="text-danger">{{ $errors->first('no_resi') }}</span>

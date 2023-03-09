@@ -150,7 +150,7 @@ class invoiceController extends Controller
             'cab' => M_cabang::getAll(),
             'getPerusahaan' => M_pelanggan::getNama($id_pelanggan),
             'id_pelanggan' => $id_pelanggan,
-            'selected' => $arr,
+            'selected' => json_encode($arr),
             'id_invoice' => $id_invoice,
         ];
         return view('Admin.Invoice.v_reselectInvoice', $data);

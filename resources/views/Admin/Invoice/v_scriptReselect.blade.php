@@ -164,7 +164,7 @@
             'style': 'multi'
         },
         "initComplete": function(row, data, dataIndex) {
-            let selected = {{ json_encode($selected) }}
+            let selected = {{ $selected }}
             let arr = this.api().data();
             let dataku = []
 

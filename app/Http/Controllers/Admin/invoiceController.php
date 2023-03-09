@@ -187,6 +187,7 @@ class invoiceController extends Controller
         try {
             DB::transaction(function () use ($form, $id_pengiriman) {
                 $invoice = M_invoice::create($form);
+                dd($invoice);
 
                 M_pengiriman::whereIn('id_pengiriman', $id_pengiriman)
                     ->update(['is_buat' => 1, 'is_lunas' => 0]);

@@ -195,10 +195,14 @@ class invoiceController extends Controller
                 (new InvoiceAction)->addKlaim($form, $invoice->id_invoice);
                 (new InvoiceAction)->addBea($form, $invoice->id_invoice);
             });
-            return redirect('/piutang')->with('pesan', 'Data Berhasil Ditambah!!');
+            $message = "pesan";
+            $info = "Data Berhasil Ditambah!!";
         } catch (Throwable $e) {
             report($e);
+            $message = "gagal";
+            $info = $e;
         }
+        return redirect('/piutang')->with($message, $info);
     }
 
     public function edit_invoice($id_invoice, M_detailInvoice $detail_invoice)
@@ -289,10 +293,14 @@ class invoiceController extends Controller
                 (new InvoiceAction)->updateKlaim($form, $id_invoice);
                 (new InvoiceAction)->updateBea($form, $id_invoice);
             });
-            return redirect()->route('detail_piutang', $form['id_pelanggan'])->with('pesan', 'Data Berhasil Diupdate');
+            $message = "pesan";
+            $info = "Data Berhasil Ditambah!!";
         } catch (Throwable $e) {
             report($e);
+            $message = "gagal";
+            $info = $e;
         }
+        return redirect()->route('detail_piutang', $form['id_pelanggan'])->with($message, $info);
     }
 
     public function printInvoice(string $id_invoice, M_invoice $invoice)
